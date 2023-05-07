@@ -1,0 +1,88 @@
+<div class="container">
+  <div
+    class="prescription-container"
+    *ngFor="let prescription of prescriptions; let i = index"
+  >
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title
+          >{{ doctors[i].title }} {{ doctors[i].firstName }}
+          {{ doctors[i].lastName }}</mat-card-title
+        >
+        <mat-card-subtitle>{{ doctors[i].profession }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="card-content">
+        <div *ngFor="let dosage of prescription.medicationDosagePrescriptions">
+          <div
+            *ngIf="medicationService.getOne(dosage.medicationId) as medication"
+          >
+            <mat-card class="dosage-card">
+              <mat-card-header>
+                <mat-card-title-group>
+                  <mat-card-title>{{ medication.name }}</mat-card-title>
+                  <mat-card-subtitle class="text-color-white"
+                    ><p>Quantity: {{ dosage.quantity }}</p>
+                    <p>Frequency: {{ dosage.frequency }} per Day</p>
+                    <p>From: {{ getDate(dosage.startDate) }}</p>
+                    <p>To: {{ getDate(dosage.endDate) }}</p></mat-card-subtitle
+                  >
+                  <img
+                    mat-card-sm-image
+                    src="../../assets/drug-placeholder.png"
+                  />
+                </mat-card-title-group>
+              </mat-card-header>
+            </mat-card>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="addToCart(prescription)"
+        >
+          Add to cart <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    role="navigation"
+    mode="over"
+    opened="false"
+    position="end"
+  >
+    <div>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        color="warn"
+        class="edit-icon"
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">close</mat-icon>
+      </button>
+      <app-prescription-form
+        [medications]="medications"
+        [patients]="patients"
+      ></app-prescription-form>
+    </div>
+  </mat-sidenav>
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-fab
+    color="accent"
+    class="edit-button"
+    (click)="drawer.toggle()"
+  >
+    <mat-icon aria-label="Side nav toggle icon">edit</mat-icon>
+  </button>
+</div>

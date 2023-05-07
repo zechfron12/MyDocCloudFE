@@ -1,0 +1,48 @@
+.description {
+  background-color: #fff;
+}
+
+.description h2 {
+  font-size: 38px;
+}
+
+.description h3 {
+  margin-bottom: 2px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.chip {
+  display: inline-block;
+  background-color: #e0e0e0;
+  padding: 0.6rem 1.6rem;
+  border-radius: 30px;
+}
+
+.appointment {
+  margin: 2em 0em;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.appointment p {
+  display: inline-block;
+  margin: 1rem;
+  width: 50%;
+  line-height: 2.5rem;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 40px;
+}
+
+.buttons-section button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 1rem;
+}

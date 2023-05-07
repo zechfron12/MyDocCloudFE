@@ -1,0 +1,21 @@
+<div class="container">
+  <div>
+    <mat-card>
+      <mat-card-title>Status</mat-card-title>
+      <mat-card-content>{{ response.actionCodeDescription }}</mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>Order Number</mat-card-title>
+      <mat-card-content>{{ response.orderNumber }}</mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>Amount</mat-card-title>
+      <mat-card-content>{{ response.amount / 100 }} Lei</mat-card-content>
+    </mat-card>
+  </div>
+  <div class="products-container centered">
+    <div *ngFor="let drug of medications">
+      <app-drug-card [drug]="drug"></app-drug-card>
+    </div>
+  </div>
+</div>

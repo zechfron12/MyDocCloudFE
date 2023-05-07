@@ -1,0 +1,90 @@
+<div class="container">
+  <mat-card
+    class="example-card card"
+    [matBadge]="counter !== 0 ? counter : null"
+    matBadgeSize="medium"
+    matBadgeColor="primary"
+  >
+    <img
+      mat-card-image
+      src="assets/drug-placeholder.png"
+      alt="Drug image"
+      class="drug-img"
+    />
+
+    <button
+      mat-icon-button
+      aria-label="Delete this drug"
+      color="warn"
+      class="delete-icon"
+      (click)="onDelete($event)"
+      *ngIf="editable || canDelete"
+    >
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+    <button
+      *ngIf="editable"
+      type="button"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      color="accent"
+      class="edit-icon"
+      (click)="drawer.toggle()"
+    >
+      <mat-icon aria-label="Side nav toggle icon">edit</mat-icon>
+    </button>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>
+        <p class="drug-header">{{ drug.name }}</p></mat-card-title
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="card-content">
+        <p class="secondary-header">{{ drug.capacity }} {{ drug.unit }}</p>
+        <p class="grade price">{{ drug.price }} RON</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions *ngIf="canBuy">
+      <button mat-button (click)="addToCart()">
+        BUY <mat-icon>add_shopping_cart</mat-icon>
+      </button>
+    </mat-card-actions>
+    <mat-card-actions *ngIf="forCart">
+      <button mat-raised-button (click)="addToCart()" color="primary">
+        <mat-icon>exposure_plus_1</mat-icon>
+      </button>
+      <button mat-raised-button (click)="decreaseFromCart()" color="warn">
+        <mat-icon>exposure_neg_1</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    role="navigation"
+    mode="over"
+    opened="false"
+    position="end"
+  >
+    <div class="form-container">
+      <app-medication-form
+        title="Edit Medication"
+        [medication]="drug"
+        (submitEmitter)="onSubmit($event)"
+      ></app-medication-form>
+      <button
+        *ngIf="editable"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        color="warn"
+        class="edit-icon"
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">close</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav>
+</div>

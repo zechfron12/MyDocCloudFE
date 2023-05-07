@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="col centered">
+    <div class="header">
+      <div class="breadcrumb">
+        <a mat-button routerLink="/home" color="primary"> Home </a> >
+        <a mat-button routerLink="/medics" color="primary"> Medics </a> >
+
+        <a mat-button>
+          {{ doctor.title }}
+          {{ doctor.firstName }}
+          {{ doctor.lastName }}
+        </a>
+      </div>
+      <p class="medic-title">
+        {{ doctor.title }} {{ doctor.firstName }} {{ doctor.lastName }}
+      </p>
+    </div>
+  </div>
+  <div class="main-container">
+    <div class="menu">
+      <a
+        mat-button
+        [routerLink]="'/medics/' + doctor.id + '/profile'"
+        color="primary"
+        >Medic Profile</a
+      >
+      <a
+        mat-button
+        [routerLink]="'/medics/' + doctor.id + '/appointment'"
+        color="primary"
+        >Schedule</a
+      >
+    </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+    <div></div>
+  </div>
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    role="navigation"
+    mode="over"
+    opened="false"
+    position="end"
+  >
+    <div>
+      <app-medic-form
+        [doctor]="doctor"
+        title="Edit Medic"
+        (submitEmitter)="onFormSubmit($event)"
+      ></app-medic-form>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        color="warn"
+        class="edit-icon"
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">close</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav>
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-fab
+    color="accent"
+    class="edit-button"
+    (click)="drawer.toggle()"
+  >
+    <mat-icon aria-label="Side nav toggle icon">edit</mat-icon>
+  </button>
+</div>

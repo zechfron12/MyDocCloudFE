@@ -1,0 +1,18 @@
+<div class="description">
+  <h2>{{ doctor.profession }}</h2>
+  <h3>Specialization:</h3>
+  <p>{{ doctor.specialization }}</p>
+  <h3>Location:</h3>
+  <div class="chip">{{ doctor.location }}</div>
+</div>
+<div class="appointment primary-background">
+  <p>
+    Appointments at {{ doctor.title }} {{ doctor.firstName }}
+    {{ doctor.lastName }}
+  </p>
+
+  <div class="buttons-section">
+    <button mat-flat-button>See Schedule</button>
+    <button mat-flat-button>Appointment</button>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<form [formGroup]="medicationForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>{{ title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Name" formControlName="name" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Capacity" formControlName="capacity" />
+            <mat-error
+              *ngIf="medicationForm.controls['capacity'].hasError('required')"
+            >
+              Capacity is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Unit" formControlName="unit" />
+            <mat-error
+              *ngIf="medicationForm.controls['unit'].hasError('required')"
+            >
+              Unit is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              placeholder="Stock Available"
+              formControlName="stock"
+            ></textarea>
+            <mat-error
+              *ngIf="medicationForm.controls['stock'].hasError('required')"
+            >
+              Stock is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Price" formControlName="price" />
+            <mat-error
+              *ngIf="medicationForm.controls['price'].hasError('required')"
+            >
+              Price is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" type="submit">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -1,0 +1,18 @@
+<app-medic-form
+  (submitEmitter)="onSubmit($event)"
+  title="Add Medic"
+></app-medic-form>
+<mat-divider></mat-divider>
+<mat-toolbar>
+  <h1 class="title">Medics</h1>
+  <mat-icon color="primary">info</mat-icon>
+</mat-toolbar>
+<div class="container">
+  <div *ngFor="let doctor of doctors">
+    <app-medic-card
+      [doctor]="doctor"
+      [editable]="true"
+      (delete)="onDelete($event)"
+    ></app-medic-card>
+  </div>
+</div>

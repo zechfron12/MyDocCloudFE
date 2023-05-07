@@ -1,0 +1,13 @@
+<div *ngFor="let billObject of billsObject">
+  <mat-card *ngIf="billObject.medications.length > 0">
+    <mat-card-title>Bill: {{ billObject.bill.id }}</mat-card-title>
+
+    <mat-card-title>Bill Total: {{ billObject.bill.billTotal }}</mat-card-title>
+    <mat-card-title>Products: </mat-card-title>
+    <div class="products-container centered">
+      <div *ngFor="let drug of billObject.medications">
+        <app-drug-card [drug]="drug"></app-drug-card>
+      </div>
+    </div>
+  </mat-card>
+</div>

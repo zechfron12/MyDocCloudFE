@@ -1,0 +1,98 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/flatpickr/dist/flatpickr.min.css";
+* {
+  font-family: "Merriweather", Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  background-color: #673ab7;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #673ab7;
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(180deg, #673ab7 0%, #ffd740 99%);
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+  border-radius: 100px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.primary-background {
+  background-color: #673ab7;
+}
+
+.selection-button {
+  background-color: #673ab7;
+  color: #f5f5f5;
+}
+
+.accent {
+  color: #ffd740;
+}
+
+.section-active {
+  background-color: #683ab746;
+}
+
+.accent-background {
+  background-color: #ffd740;
+}
+
+.warn-background {
+  background-color: #f44336;
+}
+
+.name {
+  margin: 0px;
+  color: #673ab7;
+}
+
+.grade {
+  color: #673ab7;
+  font-weight: 900;
+}
+
+.secondary-header {
+  display: block;
+  color: #828282;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.generic-title {
+  font-weight: bold;
+  color: #2e333c;
+  max-width: 900px;
+  margin: auto;
+  font-size: 56px;
+}

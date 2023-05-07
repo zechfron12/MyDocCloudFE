@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\medics\medic-page\medic-page.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\medics\medic-form\medic-form.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\medics\medic-profile\medic-profile.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\medics\medic-appointment\medic-appointment.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\medications\medication-form\medication-form.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\shared\services\shopping-cart.service.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\shared\services\medication.service.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\shared\services\patient.service.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\shared\services\appointments.service.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\shared\services\doctor.service.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\prescriptions\prescriptions.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\shopping-cart\shopping-cart.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\navbar\navbar.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\medics\medics.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\medications\medications.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\medic-card\medic-card.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\home\home.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\app.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\app\drug-card\drug-card.component.spec.ts">
+  </file>
+  <file path="D:\C_sub_acoperire\GitHubProjects\Proiect-DOT-NET\ClientApp\src\test.ts">
+  </file>
+</testExecutions>

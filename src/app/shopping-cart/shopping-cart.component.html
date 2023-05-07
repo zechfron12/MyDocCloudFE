@@ -1,0 +1,19 @@
+<mat-toolbar>
+  <p class="generic-title shopping-title">Shopping cart</p>
+</mat-toolbar>
+<div class="container centered">
+  <div *ngFor="let item of items">
+    <app-drug-card
+      [drug]="item.medication"
+      [counter]="item.count"
+      [forCart]="true"
+      [canDelete]="true"
+      (delete)="deleteFromCart($event)"
+    ></app-drug-card>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div class="description">
+  <p class="price">Totale Price: {{ totalPrice }}</p>
+  <button mat-flat-button color="accent" (click)="onPay()">Pay</button>
+</div>

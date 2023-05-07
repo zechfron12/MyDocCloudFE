@@ -1,0 +1,73 @@
+<div class="container">
+  <mat-grid-list cols="1" rowHeight="40px">
+    <mat-grid-tile rowspan="2">
+      <div class="header">
+        <img
+          class="profile-img"
+          src="assets/medic-image-placeholder.jpg"
+          alt="medic-placeholder"
+        />
+        <div class="description">
+          <h1 class="name">
+            {{ doctor.title + " " }} {{ doctor.firstName }}
+            {{ doctor.lastName }}
+          </h1>
+          <p class="profession">{{ doctor.profession }}</p>
+        </div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="5">
+      <div class="vertical-line">
+        <div class="chunck">
+          <p class="secondary-header">Specialities</p>
+          <p>{{ doctor.specialization }}</p>
+        </div>
+        <div class="chunck">
+          <p class="secondary-header">Locatii</p>
+          <p>{{ doctor.location }}</p>
+        </div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="1">
+      <div class="grading">
+        <p class="secondary-header">Grade</p>
+        <p class="inline grade">{{ doctor.grade }}</p>
+        <p class="inline reviews">/ {{ doctor.reviews }} reviews</p>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div class="overlap-container">
+    <div class="inner-overlap-comntainer">
+      <button
+        mat-icon-button
+        aria-label="Delete this drug"
+        color="accent"
+        class="delete-icon"
+        (click)="onDelete($event)"
+        *ngIf="editable"
+      >
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+      <div class="row">
+        <a
+          class="overlap-link"
+          mat-button
+          [routerLink]="'/medics/' + doctor.id + '/appointment'"
+        >
+          <mat-icon class="overlap-icon">event</mat-icon>
+          <p>Appointment</p></a
+        >
+      </div>
+      <div class="row">
+        <a
+          class="overlap-link"
+          mat-button
+          [routerLink]="['/medics', doctor.id]"
+        >
+          <mat-icon class="overlap-icon">perm_identity</mat-icon>
+          <p>See Profile</p></a
+        >
+      </div>
+    </div>
+  </div>
+</div>

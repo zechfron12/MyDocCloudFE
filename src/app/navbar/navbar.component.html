@@ -1,0 +1,118 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar class="logo-container">
+      <img src="assets/logo.png" alt="logo" class="logo" />
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+    <div class="nav-button-section">
+      <a
+        class="nav-button"
+        mat-button
+        routerLink="/home"
+        routerLinkActive="section-active"
+        color="primary"
+      >
+        <mat-icon color="primary">home</mat-icon>
+        <p>Home</p></a
+      >
+      <a
+        class="nav-button"
+        mat-button
+        routerLink="/appointments"
+        routerLinkActive="section-active"
+        color="primary"
+      >
+        <mat-icon color="primary">calendar_today</mat-icon>
+        <p>Appointments</p></a
+      >
+      <a
+        class="nav-button"
+        mat-button
+        routerLink="/prescriptions"
+        routerLinkActive="section-active"
+        color="primary"
+      >
+        <mat-icon color="primary">assignment</mat-icon>
+        <p>Prescriptions</p></a
+      >
+      <a
+        class="nav-button"
+        mat-button
+        routerLink="/medics"
+        routerLinkActive="section-active"
+        color="primary"
+      >
+        <mat-icon color="primary">group</mat-icon>
+        <p>Medics</p></a
+      >
+      <a
+        class="nav-button"
+        mat-button
+        routerLink="/medications"
+        routerLinkActive="section-active"
+        color="primary"
+      >
+        <mat-icon color="primary">local_library</mat-icon>
+        <p>Medications</p></a
+      >
+      <a
+        class="nav-button"
+        mat-button
+        routerLink="/history"
+        routerLinkActive="section-active"
+        color="primary"
+      >
+        <mat-icon color="primary">chrome_reader_mode</mat-icon>
+        <p>History</p></a
+      >
+      <a
+        class="nav-button"
+        mat-button
+        routerLink="/settings"
+        routerLinkActive="section-active"
+        color="primary"
+      >
+        <mat-icon color="primary">settings</mat-icon>
+        <p>Settings</p></a
+      >
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="z-index-high top-toolbar">
+      <div>
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async"
+        >
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span>MyDocAppointment</span>
+      </div>
+      <a
+        mat-fab
+        color="primary"
+        aria-label="Example icon button with a delete icon"
+        routerLink="/shopping-cart"
+      >
+        <mat-icon
+          [matBadge]="cartSize"
+          matBadgeSize="small"
+          matBadgeColor="accent"
+          >shopping_cart</mat-icon
+        >
+      </a>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

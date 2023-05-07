@@ -1,0 +1,41 @@
+.container {
+  width: 200px;
+  padding: 15px;
+  margin: 0 0 15px 0;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.drug-header {
+  font-weight: bold;
+}
+
+.mat-card-avatar {
+  display: none;
+}
+
+.mat-card-header {
+  display: flex;
+  justify-content: center;
+}
+
+.price {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.card {
+  position: relative;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}

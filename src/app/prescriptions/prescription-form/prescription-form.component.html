@@ -1,0 +1,136 @@
+<mat-card class="shipping-card">
+  <mat-card-header>
+    <mat-card-title class="title">Make a prescription</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Select Patient</mat-label>
+      <mat-select [formControl]="patientControl" required>
+        <mat-option *ngFor="let patient of patients" [value]="patient">
+          {{ patient.lastName }} {{ patient.firstName }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="patientControl.hasError('required')"
+        >Please choose a patient</mat-error
+      >
+    </mat-form-field>
+    <div *ngFor="let prescriptionForm of prescriptionForms; let i = index">
+      <form [formGroup]="prescriptionForm" novalidate>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Medication {{ i + 1 }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="col">
+              <mat-form-field class="full-width">
+                <mat-select
+                  placeholder="Medication"
+                  formControlName="medication"
+                >
+                  <mat-option
+                    *ngFor="let medication of medications"
+                    [value]="medication.id"
+                  >
+                    {{ medication.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="
+                    prescriptionForm.controls['medication'].hasError('required')
+                  "
+                >
+                  Medication is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input
+                  [formGroup]="prescriptionForm"
+                  [rangePicker]="picker"
+                >
+                  <input
+                    matStartDate
+                    formControlName="start"
+                    placeholder="Start date"
+                  />
+                  <input
+                    matEndDate
+                    formControlName="end"
+                    placeholder="End date"
+                  />
+                </mat-date-range-input>
+                <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+
+                <mat-error
+                  *ngIf="
+                    prescriptionForm.controls.start.hasError(
+                      'matStartDateInvalid'
+                    )
+                  "
+                  >Invalid start date</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    prescriptionForm.controls.end.hasError('matEndDateInvalid')
+                  "
+                  >Invalid end date</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <input
+                    matInput
+                    placeholder="Quantity"
+                    formControlName="quantity"
+                  />
+                  <mat-error
+                    *ngIf="
+                      prescriptionForm.controls['quantity'].hasError('required')
+                    "
+                  >
+                    Quantityc<strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <input
+                    matInput
+                    placeholder="Dosages per Day"
+                    formControlName="frequency"
+                  />
+                  <mat-error
+                    *ngIf="
+                      prescriptionForm.controls['frequency'].hasError(
+                        'required'
+                      )
+                    "
+                  >
+                    Dosages per Day <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>
+    </div>
+    <div class="full-width button-section">
+      <button mat-raised-button color="primary" (click)="addForm()">
+        Add dosage
+      </button>
+      <button mat-raised-button color="accent" (click)="onSubmit()">
+        Submit
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
