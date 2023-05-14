@@ -35,15 +35,21 @@ export class DoctorService extends AbstractRestService<Doctor> {
     );
   }
 
-  postAppointment(doctorId: string, appointment: Appointment) {
+  postAppointment(
+    doctorId: string,
+    patientId: string,
+    startTime: string,
+    endTime: string
+  ) {
+
     return this.http.post<Appointment>(
       this._url + '/' + doctorId + '/appointments',
       [
         {
-          startTime: appointment.startTime,
-          endTime: appointment.endTime,
-          patientId: appointment.patientId,
-          doctorId: doctorId,
+          startTime,
+          endTime,
+          patientId,
+          doctorId,
         },
       ]
     );

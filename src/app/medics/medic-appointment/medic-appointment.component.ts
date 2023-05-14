@@ -157,7 +157,12 @@ export class MedicAppointmentComponent implements OnInit {
 
   addAppointment(): void {
     this.doctorService
-      .postAppointment(this.doctorId, this.appointmentModel)
+      .postAppointment(
+        this.doctorId,
+        this.patientService.currentPatient$.getValue().id,
+        this.appointmentModel.startTime,
+        this.appointmentModel.endTime
+      )
       .subscribe({
         next: (result) => {
           this.events$.next([
