@@ -1,7 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="C:\Facultate\sem2\GC\test-clone\MyDocCloudFE\src\shared\services\doctor.service.spec.ts">
-  </file>
-  <file path="C:\Facultate\sem2\GC\test-clone\MyDocCloudFE\src\app\home\home.component.spec.ts">
-  </file>
 </testExecutions>
