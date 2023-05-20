@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import AbstractRestService from '../abstracts/AbstractRestService';
 import { BillPayment, Payment } from 'src/models/payment';
 import { HttpClient } from '@angular/common/http';
-import { BASE_API_URL } from 'src/environments/global';
+import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { Medication } from 'src/models/medication';
 
@@ -11,7 +11,11 @@ import { Medication } from 'src/models/medication';
 })
 export class BillService extends AbstractRestService<BillPayment> {
   constructor(private http: HttpClient) {
-    super(http, BASE_API_URL + 'Bills', new BehaviorSubject<BillPayment[]>([]));
+    super(
+      http,
+      environment.BASE_API_URL + 'Bills',
+      new BehaviorSubject<BillPayment[]>([])
+    );
   }
 
   override post(bill: BillPayment) {

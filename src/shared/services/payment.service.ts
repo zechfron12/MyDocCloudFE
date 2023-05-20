@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { USERNAME, PASSWORD, PAYMENT_API_URL } from 'src/environments/global';
+// import { USERNAME, PASSWORD, PAYMENT_API_URL } from 'src/environments/global';
+import { environment } from 'src/environments/environment';
 import {
   BillPayment,
   OrderStatusParams,
@@ -16,12 +17,12 @@ export class PaymentService {
   constructor(private http: HttpClient) {}
 
   getRegisterDoResponse(registerDoParams: RegisterDoParams) {
-    const endpoint = PAYMENT_API_URL + 'register.do';
+    const endpoint = environment.PAYMENT_API_URL + 'register.do';
 
     const body = new URLSearchParams();
 
-    body.set('userName', USERNAME);
-    body.set('password', PASSWORD);
+    body.set('userName', environment.USERNAME);
+    body.set('password', environment.PASSWORD);
 
     for (const key in registerDoParams) {
       if (Object.prototype.hasOwnProperty.call(registerDoParams, key)) {
@@ -43,11 +44,11 @@ export class PaymentService {
   }
 
   getOrderStatusExtended(orderStatusParamas: OrderStatusParams) {
-    const endpoint = PAYMENT_API_URL + 'getOrderStatusExtended.do';
+    const endpoint = environment.PAYMENT_API_URL + 'getOrderStatusExtended.do';
 
     const body = new URLSearchParams();
-    body.set('userName', USERNAME);
-    body.set('password', PASSWORD);
+    body.set('userName', environment.USERNAME);
+    body.set('password', environment.PASSWORD);
 
     for (const key in orderStatusParamas) {
       if (Object.prototype.hasOwnProperty.call(orderStatusParamas, key)) {

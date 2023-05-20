@@ -4,6 +4,10 @@
 
 export const environment = {
   production: false,
+  BASE_API_URL: 'https://localhost:5000/v1/api/',
+  USERNAME: '',
+  PASSWORD: '',
+  PAYMENT_API_URL: 'https://ecclients.btrl.ro:5443/payment/rest/',
 };
 
 /*
