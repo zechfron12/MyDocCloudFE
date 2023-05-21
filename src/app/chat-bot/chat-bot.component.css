@@ -32,3 +32,7 @@ h3 {
 .example-spacer {
   flex: 1 1 auto;
 }
+
+p {
+  margin: 0px;
+}
