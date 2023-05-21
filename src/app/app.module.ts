@@ -48,6 +48,22 @@ import { PrescriptionFormComponent } from './prescriptions/prescription-form/pre
 import { HistoryComponent } from './history/history.component';
 import { ChatBotComponent } from './chat-bot/chat-bot.component';
 
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCg4f8CF0Vo07eTrR6htmQYUwNI7Xh36cY",
+  authDomain: "mydocappointmentfe.firebaseapp.com",
+  projectId: "mydocappointmentfe",
+  storageBucket: "mydocappointmentfe.appspot.com",
+  messagingSenderId: "215489991074",
+  appId: "1:215489991074:web:24ffe8e83a6a95bfa0a2fb",
+  measurementId: "G-D27EK10CER"
+};
+
+initializeApp(firebaseConfig);
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -108,4 +124,4 @@ import { ChatBotComponent } from './chat-bot/chat-bot.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

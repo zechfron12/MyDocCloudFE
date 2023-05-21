@@ -87,31 +87,39 @@
 
   <mat-sidenav-content>
     <mat-toolbar color="primary" class="z-index-high top-toolbar">
-      <div>
+      <div class="user">
         <button
+          *ngIf="!user.email"
           type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async"
+          class="login-with-google-btn"
+          (click)="signInWithGoogle()"
         >
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+          Sign in with Google
         </button>
-        <span>MyDocAppointment</span>
+        <div *ngIf="user.email" class="user-data">
+          <img class="user-img" [src]="user.photoURL" />
+          <div>
+            <p>{{ user.displayName }}</p>
+            <p>{{ user.email }}</p>
+          </div>
+        </div>
       </div>
-      <a
-        mat-fab
-        color="primary"
-        aria-label="Example icon button with a delete icon"
-        routerLink="/shopping-cart"
-      >
-        <mat-icon
-          [matBadge]="cartSize"
-          matBadgeSize="small"
-          matBadgeColor="accent"
-          >shopping_cart</mat-icon
+      <div class="title">My Doctor Appointments</div>
+      <div class="cart">
+        <a
+          mat-fab
+          color="primary"
+          aria-label="Example icon button with a delete icon"
+          routerLink="/shopping-cart"
         >
-      </a>
+          <mat-icon
+            [matBadge]="cartSize"
+            matBadgeSize="small"
+            matBadgeColor="accent"
+            >shopping_cart</mat-icon
+          >
+        </a>
+      </div>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
