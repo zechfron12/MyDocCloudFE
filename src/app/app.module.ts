@@ -46,6 +46,7 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { PaymentPresentationComponent } from './payment-presentation/payment-presentation.component';
 import { PrescriptionFormComponent } from './prescriptions/prescription-form/prescription-form.component';
 import { HistoryComponent } from './history/history.component';
+import { ChatBotComponent } from './chat-bot/chat-bot.component';
 
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
@@ -84,6 +85,7 @@ initializeApp(firebaseConfig);
     PaymentPresentationComponent,
     PrescriptionFormComponent,
     HistoryComponent,
+    ChatBotComponent,
   ],
   imports: [
     BrowserModule,

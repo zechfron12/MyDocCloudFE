@@ -1,0 +1,24 @@
+<div class="container">
+  <button
+    mat-fab
+    color="primary"
+    aria-label="Chat-bot"
+    (click)="openChat()"
+    *ngIf="!isChatPopped"
+  >
+    <mat-icon class="icon">comment</mat-icon>
+  </button>
+
+  <div class="chat-container" *ngIf="isChatPopped">
+    <p>
+      <mat-toolbar color="primary" class="chat-header">
+        <span>Chat online</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button (click)="closeChat()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-toolbar>
+    </p>
+    <iframe [src]="botUrl" class="chat-frame"></iframe>
+  </div>
+</div>
