@@ -47,6 +47,22 @@ import { PaymentPresentationComponent } from './payment-presentation/payment-pre
 import { PrescriptionFormComponent } from './prescriptions/prescription-form/prescription-form.component';
 import { HistoryComponent } from './history/history.component';
 
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCg4f8CF0Vo07eTrR6htmQYUwNI7Xh36cY",
+  authDomain: "mydocappointmentfe.firebaseapp.com",
+  projectId: "mydocappointmentfe",
+  storageBucket: "mydocappointmentfe.appspot.com",
+  messagingSenderId: "215489991074",
+  appId: "1:215489991074:web:24ffe8e83a6a95bfa0a2fb",
+  measurementId: "G-D27EK10CER"
+};
+
+initializeApp(firebaseConfig);
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -106,4 +122,4 @@ import { HistoryComponent } from './history/history.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

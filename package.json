@@ -27,6 +27,7 @@
     "angularx-flatpickr": "^7.0.0",
     "bootstrap": "^5.2.3",
     "date-fns": "^2.29.3",
+    "firebase": "^9.22.0",
     "karma-coverage-istanbul-reporter": "^3.0.3",
     "moment": "^2.29.4",
     "rxjs": "~7.5.0",
