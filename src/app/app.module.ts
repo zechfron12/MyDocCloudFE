@@ -54,6 +54,7 @@ import { getAuth } from 'firebase/auth';
 const firebaseConfig = {
   apiKey: "AIzaSyCg4f8CF0Vo07eTrR6htmQYUwNI7Xh36cY",
   authDomain: "mydocappointmentfe.firebaseapp.com",
+  databaseURL: "https://mydocappointmentfe-default-rtdb.firebaseio.com",
   projectId: "mydocappointmentfe",
   storageBucket: "mydocappointmentfe.appspot.com",
   messagingSenderId: "215489991074",
