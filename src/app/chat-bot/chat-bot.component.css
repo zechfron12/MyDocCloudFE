@@ -7,8 +7,6 @@
   flex-direction: row-reverse;
   z-index: 100;
   margin: 1rem;
-  width: 50vw;
-  height: 75vh;
 }
 
 h3 {
@@ -16,8 +14,8 @@ h3 {
 }
 
 .chat-container {
-  height: 100%;
-  width: 100%;
+  width: 50vw;
+  height: 75vh;
 }
 
 .chat-header {
