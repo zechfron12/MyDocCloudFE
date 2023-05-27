@@ -89,18 +89,22 @@
     <mat-toolbar color="primary" class="z-index-high top-toolbar">
       <div class="user">
         <button
-          *ngIf="!user.email"
+          *ngIf="!user?.email"
           type="button"
           class="login-with-google-btn"
           (click)="signInWithGoogle()"
         >
           Sign in with Google
         </button>
-        <div *ngIf="user.email" class="user-data">
-          <img class="user-img" [src]="user.photoURL" />
+        <div *ngIf="user?.email" class="user-data">
+          <img class="sign-out-img" src="../../assets/sign-out.png" 
+                                    ngbTooltip="Sign out" 
+                                    placement="bottom-left"
+                                    (click)="signOutWithGoogle()">
+          <img class="user-img" [src]="user?.photoURL" />
           <div>
-            <p>{{ user.displayName }}</p>
-            <p>{{ user.email }}</p>
+            <p>{{ user?.displayName }}</p>
+            <p>{{ user?.email }}</p>
           </div>
         </div>
       </div>

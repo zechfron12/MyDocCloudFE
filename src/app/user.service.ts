@@ -16,7 +16,7 @@ export class UserService {
     return user;
   }
 
-  public setUserData(user: any) {
+  public setUserData(user: any) {    
     if (user) {
       localStorage.setItem("email", user.email);
       localStorage.setItem("displayName", user.displayName);
