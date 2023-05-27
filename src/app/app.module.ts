@@ -49,7 +49,8 @@ import { HistoryComponent } from './history/history.component';
 import { ChatBotComponent } from './chat-bot/chat-bot.component';
 
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { UserService } from './user.service';
+import { GapiService } from './gapi-service/gapi.service';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCg4f8CF0Vo07eTrR6htmQYUwNI7Xh36cY",
@@ -122,7 +123,7 @@ initializeApp(firebaseConfig);
     MatBadgeModule,
     MatSnackBarModule,
   ],
-  providers: [],
+  providers: [UserService, GapiService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

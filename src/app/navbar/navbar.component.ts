@@ -5,6 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { GoogleAuthProvider, browserSessionPersistence, getAuth, setPersistence, signInWithCredential, signInWithPopup } from 'firebase/auth';
 import { ShoppingCartService } from 'src/shared/services/shopping-cart.service';
 import { UserService } from '../user.service';
+import { GapiService } from '../gapi-service/gapi.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,12 +25,13 @@ export class NavbarComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private shoppingCartService: ShoppingCartService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private gapi: GapiService
+  ) { }
 
-    public user: any;
+  public user: any;
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.shoppingCartService.$totalCount.subscribe(
       (count) => (this.cartSize = count)
     );
@@ -37,24 +39,15 @@ export class NavbarComponent implements OnInit {
     this.user = this.userService.getUserData();
   }
 
-  signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    auth.languageCode = 'it';
+  async signInWithGoogle() {
+    const res = await this.gapi.signIn();
+    this.user = await this.gapi.getUserData();
+    this.userService.setUserData(this.user);
+  }
 
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result)
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-     
-        this.user = result.user;
-        this.userService.setUserData(result.user, token);
-
-      }).catch((error) => {
-    
-        console.log(error)
-      });
+  async signOutWithGoogle() {
+    await this.gapi.signOut();
+    this.user = null;
+    this.userService.setUserData(null);
   }
 }

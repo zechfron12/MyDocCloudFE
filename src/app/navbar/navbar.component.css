@@ -98,11 +98,25 @@ p {
 }
 .user-data {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .user-img {
   width: 4rem;
   height: 4rem;
   border-radius: 20rem;
+}
+
+.sign-out-img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 3rem;
+  margin-right: -1rem;
+  z-index: 2;
+  background-color: wheat;
+  padding: .3rem;
+  border-radius: 20rem;
+  cursor: pointer;
 }
 .user-data p {
   margin: 0;

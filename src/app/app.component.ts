@@ -3,7 +3,8 @@ import { DoctorService } from 'src/shared/services/doctor.service';
 import { MedicationService } from 'src/shared/services/medication.service';
 import { signInWithCredential, setPersistence, signInWithEmailAndPassword, browserSessionPersistence, getAuth, User } from "firebase/auth";
 import { UserService } from './user.service';
-import { GmailService } from './gmail.service';
+import { GapiService } from './gapi-service/gapi.service';
+import { Subscription, debounce, interval } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,48 +18,55 @@ export class AppComponent {
     private doctorService: DoctorService,
     private medicationService: MedicationService,
     private userService: UserService,
-    private gmailService: GmailService
+    private gapi: GapiService
   ) {
     this.doctorService.getAll();
     this.medicationService.getAll();
-  }
+    async () => {
 
+      console.log(await this.gapi.isSignedIn());
+    }
+  }
+  private obs: Subscription = new Subscription();
   async ngOnInit() {
-    const auth = getAuth();
+    // const auth = getAuth();
 
-    auth.onAuthStateChanged(async (user) => {
-      this.userService.setUserData(user, null);
-    })
+    // auth.onAuthStateChanged(async (user) => {
+    //   this.userService.setUserData(user, null);
+    // })
+
+    // const isAuth = await this.gapi.isSignedIn();
+    // console.log(isAuth)
   }
 
-  signIn() {
-    this.gmailService.signIn().then(() => {
-      console.log('Signed in successfully!');
-    }).catch((error: any) => {
-      console.error('Error signing in:', error);
-    });
-  }
+  // signIn() {
+  //   this.gmailService.signIn().then(() => {
+  //     console.log('Signed in successfully!');
+  //   }).catch((error: any) => {
+  //     console.error('Error signing in:', error);
+  //   });
+  // }
 
-  signOut() {
-    this.gmailService.signOut().then(() => {
-      console.log('Signed out successfully!');
-    }).catch((error: any) => {
-      console.error('Error signing out:', error);
-    });
-  }
+  // signOut() {
+  //   this.gmailService.signOut().then(() => {
+  //     console.log('Signed out successfully!');
+  //   }).catch((error: any) => {
+  //     console.error('Error signing out:', error);
+  //   });
+  // }
 
-  sendEmail() {
-    const email = {
-      to: 'catalin.11.munteanu@gmail.com',
-      subject: 'Subject of the email',
-      body: 'Email body here'
-    };
+  // sendEmail() {
+  //   const email = {
+  //     to: 'catalin.11.munteanu@gmail.com',
+  //     subject: 'Subject of the email',
+  //     body: 'Email body here'
+  //   };
 
-    this.gmailService.sendEmail(email).then((response: any) => {
-      console.log('Email sent:', response);
-    }).catch((error: any) => {
-      console.error('Error sending email:', error);
-    });
-  }
+  //   this.gmailService.sendEmail(email).then((response: any) => {
+  //     console.log('Email sent:', response);
+  //   }).catch((error: any) => {
+  //     console.error('Error sending email:', error);
+  //   });
+  // }
 
 }
