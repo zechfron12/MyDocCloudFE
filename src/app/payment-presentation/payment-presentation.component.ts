@@ -16,7 +16,7 @@ export class PaymentPresentationComponent implements OnInit {
   response: OrderStatusResponse = {} as OrderStatusResponse;
   medications: Medication[] = [];
   billId = '';
-
+  status = '';
   constructor(
     private route: ActivatedRoute,
     private paymentService: PaymentService,
@@ -28,8 +28,8 @@ export class PaymentPresentationComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       this.billId = params.get('billId') || '';
-      const status = params.get('status') || '';
-      if (status !== 'succeed')
+      this.status = params.get('status') || '';
+      if (this.status !== 'succeed')
         this.snackBar.open('The payment did not succeed', 'Ok!', {
           horizontalPosition: 'center',
           verticalPosition: 'bottom',
