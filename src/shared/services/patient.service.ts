@@ -31,4 +31,8 @@ export class PatientService extends AbstractRestService<Patient> {
       return {} as Patient;
     }
   }
+
+  public addPatient(patient: Patient) {
+    return this.http.post<Patient>(environment.BASE_API_URL + 'Patients', patient);
+  }
 }
