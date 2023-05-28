@@ -8,6 +8,7 @@
         <th>Title</th>
         <th>Starts at</th>
         <th>Ends at</th>
+        <th>Enter call</th>
         <th>Remove</th>
       </tr>
     </thead>
@@ -51,6 +52,15 @@
             altFormat="F j, Y H:i"
             placeholder="Not set"
           />
+        </td>
+        <td>
+          <a [href]="event.callUrl" target="_blank">
+            <button
+              class="mat-stroked-button selection-button primary-background"
+            >
+              Enter
+            </button>
+          </a>
         </td>
         <td>
           <button
