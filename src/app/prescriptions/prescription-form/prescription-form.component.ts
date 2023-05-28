@@ -74,7 +74,8 @@ export class PrescriptionFormComponent implements OnInit {
   sendEmailWithPrescriptions(patientEmail: any, prescription: Prescription) {
     let subj = '[MY DOC APP] YOUR PRESCRIPTIONS';
     let body = `Hi, here are your recommended prescriptions:  
-    // TO DO: map prescription DATA
+    
+    ${JSON.stringify(prescription)}
 
     DOCTOR: ${this.currentDoctor.lastName + ' ' + this.currentDoctor.firstName}
     PROFESSION: ${this.currentDoctor.profession}

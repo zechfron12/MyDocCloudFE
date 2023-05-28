@@ -46,9 +46,9 @@ export class MedicAppointmentComponent implements OnInit {
 
   modalData:
     | {
-        action: string;
-        event: CalendarEvent;
-      }
+      action: string;
+      event: CalendarEvent;
+    }
     | undefined;
 
   refresh = new Subject<void>();
@@ -160,32 +160,6 @@ export class MedicAppointmentComponent implements OnInit {
   }
 
   addAppointment(): void {
-    ////////////// EMAIL ///////////////
-
-    // email object
-
-    // sender is the logged user
-    console.log(this.doctorService.getOne(this.doctorId)?.email);
-    console.log(this.userService.getUserData().email);
-
-    const email = {
-      to: 'PLACEHOLDER: test@test.com', // receiver
-      subject: 'PLACEHOLDER: [EMAIL SUBJECT]',
-      body: 'PLACEHOLDER [EMAIL BODY]',
-    };
-
-    // request
-    this.gapi
-      .sendEmail(email)
-      .then((response: any) => {
-        console.log('Email sent:', response);
-      })
-      .catch((error: any) => {
-        console.error('Error sending email:', error);
-      });
-
-    ////////////// EMAIL ///////////////
-
     this.doctorService
       .postAppointment(
         this.doctorId,
@@ -209,28 +183,12 @@ export class MedicAppointmentComponent implements OnInit {
             to: this.userService.getUserData().email || ' ', // receiver
             subject: '[MyDocAppointment] You have a new appointment!',
             body: `Appointment link: ${callUrl}
-            Doctor: ${this.doctorService.getOne(this.doctorId)?.firstName} ${
-              this.doctorService.getOne(this.doctorId)?.lastName
-            }`,
+            Doctor: ${this.doctorService.getOne(this.doctorId)?.firstName} ${this.doctorService.getOne(this.doctorId)?.lastName
+              }`,
           };
-
-          this.gapi
-            .sendEmail(emailDoctor)
-            .then((response: any) => {
-              console.log('Email sent:', response);
-            })
-            .catch((error: any) => {
-              console.error('Error sending email:', error);
-            });
-
-          this.gapi
-            .sendEmail(emailPatient)
-            .then((response: any) => {
-              console.log('Email sent:', response);
-            })
-            .catch((error: any) => {
-              console.error('Error sending email:', error);
-            });
+          
+          this.sendEmail(emailDoctor);
+          this.sendEmail(emailPatient);
 
           this.events$.next([
             ...this.events$.getValue(),
@@ -268,6 +226,17 @@ export class MedicAppointmentComponent implements OnInit {
               .toISOString(),
           };
         },
+      });
+  }
+
+  sendEmail(email: any) {
+    this.gapi
+      .sendEmail(email)
+      .then((response: any) => {
+        console.log('Email sent:', response);
+      })
+      .catch((error: any) => {
+        console.error('Error sending email:', error);
       });
   }
 

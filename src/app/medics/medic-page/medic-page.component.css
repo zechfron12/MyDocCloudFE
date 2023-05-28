@@ -65,9 +65,9 @@
 
 .edit-button {
   z-index: 10000;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
 }
 
 .edit-icon {
