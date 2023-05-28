@@ -154,3 +154,9 @@ export interface Payment {
   orderStatus: number;
   cardHolderName: string;
 }
+
+export interface PaymentParams {
+  value: string;
+  description: string;
+  bill_id: string;
+}

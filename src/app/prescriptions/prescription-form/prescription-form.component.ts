@@ -34,14 +34,12 @@ export class PrescriptionFormComponent implements OnInit {
     private doctorService: DoctorService,
     private gapi: GapiService,
     private medicationService: MedicationService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.doctorService.currentDoctor$.subscribe(
       (currentDoctor) => (this.currentDoctor = currentDoctor)
-      
     );
-    console.log(this.currentDoctor);
   }
 
   onSubmit(): void {
@@ -61,11 +59,7 @@ export class PrescriptionFormComponent implements OnInit {
         medicationDosages.push(dosage);
       }
     });
-    console.log(this.patientControl.getRawValue()?.id);
-    
-    console.log("DATA: ", this.prescriptionForms.forEach((f) => {
-      console.log("f: ", f.getRawValue());
-    }))
+
     const prescription: Prescription = {
       doctorId: this.currentDoctor.id,
       patientId: this.patientControl.getRawValue()?.id || ' ',
@@ -78,12 +72,12 @@ export class PrescriptionFormComponent implements OnInit {
   }
 
   sendEmailWithPrescriptions(patientEmail: any, prescription: Prescription) {
-    let subj = "[MY DOC APP] YOUR PRESCRIPTIONS";
+    let subj = '[MY DOC APP] YOUR PRESCRIPTIONS';
     let body = `Hi, here are your recommended prescriptions:  
     
     // TO DO: map prescription DATA
 
-    DOCTOR: ${this.currentDoctor.lastName + " " + this.currentDoctor.firstName}
+    DOCTOR: ${this.currentDoctor.lastName + ' ' + this.currentDoctor.firstName}
     PROFESSION: ${this.currentDoctor.profession}
     SPECIALIZATION: ${this.currentDoctor.specialization}
     TITLE: ${this.currentDoctor.title}
@@ -94,14 +88,17 @@ export class PrescriptionFormComponent implements OnInit {
     const email = {
       to: patientEmail,
       subject: subj,
-      body: body
+      body: body,
     };
 
-    this.gapi.sendEmail(email).then((response: any) => {
-      console.log('Email sent:', response);
-    }).catch((error: any) => {
-      console.error('Error sending email:', error);
-    });
+    this.gapi
+      .sendEmail(email)
+      .then((response: any) => {
+        console.log('Email sent:', response);
+      })
+      .catch((error: any) => {
+        console.error('Error sending email:', error);
+      });
   }
 
   generatePrescriptionForm() {

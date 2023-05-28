@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// import { USERNAME, PASSWORD, PAYMENT_API_URL } from 'src/environments/global';
 import { environment } from 'src/environments/environment';
 import {
   BillPayment,
   OrderStatusParams,
   OrderStatusResponse,
+  PaymentParams,
   RegisterDoParams,
   RegisterDoResponse,
 } from 'src/models/payment';
@@ -16,17 +16,15 @@ import {
 export class PaymentService {
   constructor(private http: HttpClient) {}
 
-  getRegisterDoResponse(registerDoParams: RegisterDoParams) {
-    const endpoint = environment.PAYMENT_API_URL + 'register.do';
+  doPayment(registerDoParams: PaymentParams) {
+    const endpoint =
+      'https://europe-central2-mydocappointmentfe.cloudfunctions.net/pay';
 
     const body = new URLSearchParams();
-
-    body.set('userName', environment.USERNAME);
-    body.set('password', environment.PASSWORD);
 
     for (const key in registerDoParams) {
       if (Object.prototype.hasOwnProperty.call(registerDoParams, key)) {
-        let element = registerDoParams[key as keyof RegisterDoParams];
+        let element = registerDoParams[key as keyof PaymentParams];
         if (typeof element === 'object') {
           element = JSON.stringify(element).trim();
         }
@@ -40,33 +38,6 @@ export class PaymentService {
       }),
     };
 
-    return this.http.post<RegisterDoResponse>(endpoint, body, httpOptions);
+    return this.http.post<{ url: string }>(endpoint, body, httpOptions);
   }
-
-  getOrderStatusExtended(orderStatusParamas: OrderStatusParams) {
-    const endpoint = environment.PAYMENT_API_URL + 'getOrderStatusExtended.do';
-
-    const body = new URLSearchParams();
-    body.set('userName', environment.USERNAME);
-    body.set('password', environment.PASSWORD);
-
-    for (const key in orderStatusParamas) {
-      if (Object.prototype.hasOwnProperty.call(orderStatusParamas, key)) {
-        let element = orderStatusParamas[key as keyof OrderStatusParams] as any;
-        if (typeof element === 'object') {
-          element = JSON.stringify(element).trim();
-        }
-        body.set(key, element);
-      }
-    }
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-      }),
-    };
-    return this.http.post<OrderStatusResponse>(endpoint, body, httpOptions);
-  }
-
-  savePayment(payment: BillPayment) {}
 }
