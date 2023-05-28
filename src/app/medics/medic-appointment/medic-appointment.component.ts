@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Patient } from 'src/models/patient';
 import * as moment from 'moment';
 import { colors } from 'src/environments/global';
+import { GapiService } from 'src/app/gapi-service/gapi.service';
 
 @Component({
   selector: 'app-medic-appointment',
@@ -67,7 +68,8 @@ export class MedicAppointmentComponent implements OnInit {
     private patientService: PatientService,
     private appointmentService: AppointmentsService,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private gapi: GapiService
   ) {
     this.events$.subscribe((events) => {
       const filteredEvents = events.filter(
@@ -156,6 +158,28 @@ export class MedicAppointmentComponent implements OnInit {
   }
 
   addAppointment(): void {
+    ////////////// EMAIL ///////////////
+    
+
+    // email object
+
+    // sender is the logged user
+    const email = {
+      to: "PLACEHOLDER: test@test.com", // receiver
+      subject: "PLACEHOLDER: [EMAIL SUBJECT]",
+      body: "PLACEHOLDER [EMAIL BODY]"
+    };
+
+
+    // request
+    this.gapi.sendEmail(email).then((response: any) => {
+      console.log('Email sent:', response);
+    }).catch((error: any) => {
+      console.error('Error sending email:', error);
+    });
+
+    ////////////// EMAIL ///////////////
+
     this.doctorService
       .postAppointment(
         this.doctorId,
