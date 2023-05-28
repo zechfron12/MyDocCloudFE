@@ -9,6 +9,7 @@ import { MedicationService } from 'src/shared/services/medication.service';
 import { PatientService } from 'src/shared/services/patient.service';
 import { PrescriptionService } from 'src/shared/services/prescription.service';
 import { ShoppingCartService } from 'src/shared/services/shopping-cart.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-prescriptions',
@@ -20,6 +21,7 @@ export class PrescriptionsComponent implements OnInit {
   medications: Medication[] = [];
   doctors: Doctor[] = [];
   patients: Patient[] = [];
+  isDoctor: boolean = false;
   prescriptionForm = this.fb.group({
     patient: this.fb.control({} as Patient, {
       validators: Validators.required,
@@ -31,7 +33,8 @@ export class PrescriptionsComponent implements OnInit {
     private prescriptionService: PrescriptionService,
     private doctorService: DoctorService,
     private patientService: PatientService,
-    private shoppingCartService: ShoppingCartService
+    private shoppingCartService: ShoppingCartService,
+    private userServoce: UserService
   ) {}
 
   ngOnInit() {
@@ -50,6 +53,7 @@ export class PrescriptionsComponent implements OnInit {
         (medications) => (this.medications = medications)
       );
     });
+    this.isDoctor = this.userServoce.getRole() == 'DOCTOR';
   }
 
   getDate(date: string) {

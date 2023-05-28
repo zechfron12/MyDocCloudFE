@@ -39,12 +39,12 @@
   <div class="overlap-container">
     <div class="inner-overlap-comntainer">
       <button
+        *ngIf="isDoctor && editable"
         mat-icon-button
         aria-label="Delete this drug"
         color="accent"
         class="delete-icon"
         (click)="onDelete($event)"
-        *ngIf="editable"
       >
         <mat-icon>delete_forever</mat-icon>
       </button>

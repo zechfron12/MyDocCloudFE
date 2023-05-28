@@ -1,4 +1,5 @@
 <app-medic-form
+  *ngIf="isDoctor"
   (submitEmitter)="onSubmit($event)"
   title="Add Medic"
 ></app-medic-form>

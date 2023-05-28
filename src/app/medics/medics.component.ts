@@ -1,3 +1,4 @@
+import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
 import { Doctor } from 'src/models/doctor';
 import { DoctorService } from '../../shared/services/doctor.service';
@@ -9,8 +10,12 @@ import { DoctorService } from '../../shared/services/doctor.service';
 })
 export class MedicsComponent implements OnInit {
   doctors: Doctor[] = [];
+  isDoctor: boolean = false;
 
-  constructor(public doctorService: DoctorService) {}
+  constructor(
+    public doctorService: DoctorService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.doctorService.collection$.subscribe({
@@ -21,6 +26,8 @@ export class MedicsComponent implements OnInit {
         console.error(error);
       },
     });
+
+    this.isDoctor = this.userService.getRole() == 'DOCTOR';
   }
 
   onDelete(id: string) {

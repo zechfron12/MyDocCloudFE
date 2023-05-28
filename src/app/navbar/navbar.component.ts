@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { GoogleAuthProvider, browserSessionPersistence, getAuth, setPersistence, signInWithCredential, signInWithPopup } from 'firebase/auth';
 import { ShoppingCartService } from 'src/shared/services/shopping-cart.service';
 import { UserService } from '../user.service';
 import { GapiService } from '../gapi-service/gapi.service';
@@ -25,6 +24,10 @@ export class NavbarComponent implements OnInit {
     );
 
   cartSize: number = 0;
+  isDoctor: boolean = false;
+
+  public user: any;
+  public currentPatient: Patient[];
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -33,17 +36,14 @@ export class NavbarComponent implements OnInit {
     private gapi: GapiService,
     private patientService: PatientService,
     private doctorService: DoctorService
-  ) { }
-
-  public user: any;
-  public currentPatient: Patient[];
-
+  ) {}
   async ngOnInit() {
     this.shoppingCartService.$totalCount.subscribe(
       (count) => (this.cartSize = count)
     );
 
     this.user = this.userService.getUserData();
+    this.isDoctor = this.user.role == 'DOCTOR';
   }
 
   async signInWithGoogle() {
@@ -51,29 +51,31 @@ export class NavbarComponent implements OnInit {
     this.user = await this.gapi.getUserProfile();
     this.user.role = this.gapi.getUserRole(this.user.email);
     this.userService.setUserData(this.user);
-    
-    if (this.user.role == "PATIENT") {
 
+    if (this.user.role == 'PATIENT') {
       if (!this.isExistingPacient()) {
         let patient = {} as Patient;
 
-        let name = this.user.displayName.split(" ");
+        let name = this.user.displayName.split(' ');
 
         patient.firstName = name[0];
         patient.lastName = name[1];
         patient.email = this.user.email;
-        patient.phone = "1234";
+        patient.phone = '1234';
 
         this.patientService.addPatient(patient).subscribe((res) => {
           this.patientService.currentPatient$.next(patient);
-        })
+        });
       } else {
-        const currentPatient = this.patientService.collection$.getValue().find((p) => p.email === this.user.email) as Patient;
+        const currentPatient = this.patientService.collection$
+          .getValue()
+          .find((p) => p.email === this.user.email) as Patient;
         this.patientService.currentPatient$.next(currentPatient);
       }
-    }
-    else if (this.user.role == "DOCTOR") {
-      const currentDoctor = this.doctorService.collection$.getValue().find((p) => p.email === this.user.email) as Doctor;
+    } else if (this.user.role == 'DOCTOR') {
+      const currentDoctor = this.doctorService.collection$
+        .getValue()
+        .find((p) => p.email === this.user.email) as Doctor;
       this.doctorService.currentDoctor$.next(currentDoctor);
     }
   }
@@ -97,5 +99,4 @@ export class NavbarComponent implements OnInit {
     });
     return isExistingPatient;
   }
-
 }

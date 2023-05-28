@@ -1,3 +1,4 @@
+import { UserService } from './../../user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Doctor } from 'src/models/doctor';
@@ -12,9 +13,11 @@ export class MedicPageComponent implements OnInit {
   doctor: Doctor = {} as Doctor;
   id: string = '';
   selectedDate: Date = {} as Date;
+  showEditButton: boolean = false;
   constructor(
     private doctorService: DoctorService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -22,10 +25,11 @@ export class MedicPageComponent implements OnInit {
       this.id = params['id'];
     });
 
-    this.doctorService.collection$.subscribe(
-      (doctors) =>
-        (this.doctor = doctors.find((d) => d.id == this.id) || ({} as Doctor))
-    );
+    this.doctorService.collection$.subscribe((doctors) => {
+      this.doctor = doctors.find((d) => d.id == this.id) || ({} as Doctor);
+      this.showEditButton =
+        this.doctor.email == this.userService.getUserData().email;
+    });
   }
 
   onFormSubmit(event: Doctor) {

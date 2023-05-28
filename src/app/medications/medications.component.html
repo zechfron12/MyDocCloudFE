@@ -1,17 +1,18 @@
 <app-medication-form
+  *ngIf="isDoctor"
   title="Add Medication"
   (submitEmitter)="onSubmit($event)"
 ></app-medication-form>
 
 <mat-toolbar>
-  <h1 class="title">Drugs List</h1>
+  <h1 class="title">Medication List</h1>
   <mat-icon color="primary">info</mat-icon>
 </mat-toolbar>
 <div class="container centered">
   <div *ngFor="let drug of drugs">
     <app-drug-card
       [drug]="drug"
-      [editable]="true"
+      [editable]="isDoctor"
       [canBuy]="true"
       (delete)="onDelete($event)"
     ></app-drug-card>
