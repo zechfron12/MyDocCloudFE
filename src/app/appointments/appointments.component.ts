@@ -38,6 +38,7 @@ export class AppointmentsComponent implements OnInit {
               id: appointment.id,
               patientId: appointment.patientId,
               doctorId: appointment.doctorId,
+              callUrl: 'https://my-doc-call.web.app/room/' + appointment.id,
               start: new Date(appointment.startTime),
               end: new Date(appointment.endTime),
               title: 'Appointment' + index,
@@ -61,4 +62,6 @@ export class AppointmentsComponent implements OnInit {
     );
     this.appointmentService.delete(eventToDelete.id || '');
   }
+
+  enterCall(event: MyCalendarEvent) {}
 }
