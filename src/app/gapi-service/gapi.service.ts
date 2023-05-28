@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.prod'
 import { UserService } from '../user.service';
 import { DoctorService } from 'src/shared/services/doctor.service';
-import { MedicationService } from 'src/shared/services/medication.service';
 import { PatientService } from 'src/shared/services/patient.service';
 import { Patient } from 'src/models/patient';
+import { Doctor } from 'src/models/doctor';
 declare const gapi: any;
 
 const CLIENT_ID = environment.GCLOUD_CLIENT_ID;
@@ -36,9 +36,15 @@ export class GapiService {
     if (this.isSignedIn()) {
       let user = await this.getUserProfile();
       user.role = this.getUserRole(user.email);
+      console.log(user.role)
+      if (user.role == "PATIENT") {
+        const currentPatient = this.patientService.collection$.getValue().find((p) => p.email === user.email) as Patient;
+        this.patientService.currentPatient$.next(currentPatient);
+      } else if (user.role == "DOCTOR") {
+        const currentDoctor = this.doctorService.collection$.getValue().find((p) => p.email === user.email) as Doctor;
+        this.doctorService.currentDoctor$.next(currentDoctor);
+      }
       this.userService.setUserData(user);
-      const currentPatient = this.patientService.collection$.getValue().find((p) => p.email === user.email) as Patient;
-      this.patientService.currentPatient$.next(currentPatient);
     } else {
       this.userService.removeUserData();
     }
@@ -54,7 +60,8 @@ export class GapiService {
         console.error(error);
       },
     });
-
+    console.log(this.doctorService.collection$.getValue())
+    console.log("isDoc: ", isDoctor);
     if (isDoctor)
       return "DOCTOR";
     return "PATIENT";
@@ -98,6 +105,7 @@ export class GapiService {
         )
       }
     };
+    console.log(emailToSend)
 
     return this.gmail.users.messages.send(emailToSend);
   }
