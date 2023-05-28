@@ -45,7 +45,7 @@ export class DoctorService extends AbstractRestService<Doctor> {
     startTime: string,
     endTime: string
   ) {
-    return this.http.post<Appointment>(
+    return this.http.post<Appointment[]>(
       this._url + '/' + doctorId + '/appointments',
       [
         {

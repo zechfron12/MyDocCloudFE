@@ -16,6 +16,7 @@ import { Patient } from 'src/models/patient';
 import * as moment from 'moment';
 import { colors } from 'src/environments/global';
 import { GapiService } from 'src/app/gapi-service/gapi.service';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-medic-appointment',
@@ -69,7 +70,8 @@ export class MedicAppointmentComponent implements OnInit {
     private appointmentService: AppointmentsService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private gapi: GapiService
+    private gapi: GapiService,
+    private userService: UserService
   ) {
     this.events$.subscribe((events) => {
       const filteredEvents = events.filter(
@@ -159,24 +161,28 @@ export class MedicAppointmentComponent implements OnInit {
 
   addAppointment(): void {
     ////////////// EMAIL ///////////////
-    
 
     // email object
 
     // sender is the logged user
+    console.log(this.doctorService.getOne(this.doctorId)?.email);
+    console.log(this.userService.getUserData().email);
+
     const email = {
-      to: "PLACEHOLDER: test@test.com", // receiver
-      subject: "PLACEHOLDER: [EMAIL SUBJECT]",
-      body: "PLACEHOLDER [EMAIL BODY]"
+      to: 'PLACEHOLDER: test@test.com', // receiver
+      subject: 'PLACEHOLDER: [EMAIL SUBJECT]',
+      body: 'PLACEHOLDER [EMAIL BODY]',
     };
 
-
     // request
-    this.gapi.sendEmail(email).then((response: any) => {
-      console.log('Email sent:', response);
-    }).catch((error: any) => {
-      console.error('Error sending email:', error);
-    });
+    this.gapi
+      .sendEmail(email)
+      .then((response: any) => {
+        console.log('Email sent:', response);
+      })
+      .catch((error: any) => {
+        console.error('Error sending email:', error);
+      });
 
     ////////////// EMAIL ///////////////
 
@@ -188,7 +194,44 @@ export class MedicAppointmentComponent implements OnInit {
         this.appointmentModel.endTime
       )
       .subscribe({
-        next: (result) => {
+        next: (results) => {
+          const result = results[results.length - 1];
+          const callUrl = 'https://my-doc-call.web.app/room/' + result.id;
+
+          const emailDoctor = {
+            to: this.doctorService.getOne(this.doctorId)?.email || ' ', // receiver
+            subject: '[MyDocAppointment] You have a new appointment!',
+            body: `Appointment link: ${callUrl}
+            Patient: ${this.userService.getUserData().displayName}`,
+          };
+
+          const emailPatient = {
+            to: this.userService.getUserData().email || ' ', // receiver
+            subject: '[MyDocAppointment] You have a new appointment!',
+            body: `Appointment link: ${callUrl}
+            Doctor: ${this.doctorService.getOne(this.doctorId)?.firstName} ${
+              this.doctorService.getOne(this.doctorId)?.lastName
+            }`,
+          };
+
+          this.gapi
+            .sendEmail(emailDoctor)
+            .then((response: any) => {
+              console.log('Email sent:', response);
+            })
+            .catch((error: any) => {
+              console.error('Error sending email:', error);
+            });
+
+          this.gapi
+            .sendEmail(emailPatient)
+            .then((response: any) => {
+              console.log('Email sent:', response);
+            })
+            .catch((error: any) => {
+              console.error('Error sending email:', error);
+            });
+
           this.events$.next([
             ...this.events$.getValue(),
             {

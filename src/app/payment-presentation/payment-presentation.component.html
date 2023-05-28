@@ -2,15 +2,11 @@
   <div>
     <mat-card>
       <mat-card-title>Status</mat-card-title>
-      <mat-card-content>{{ response.actionCodeDescription }}</mat-card-content>
+      <mat-card-content>{{ status }}</mat-card-content>
     </mat-card>
     <mat-card>
-      <mat-card-title>Order Number</mat-card-title>
-      <mat-card-content>{{ response.orderNumber }}</mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>Amount</mat-card-title>
-      <mat-card-content>{{ response.amount / 100 }} Lei</mat-card-content>
+      <mat-card-title>Bill Id</mat-card-title>
+      <mat-card-content>{{ billId }}</mat-card-content>
     </mat-card>
   </div>
   <div class="products-container centered">
