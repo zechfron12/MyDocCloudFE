@@ -3,7 +3,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { Medication } from 'src/models/medication';
-import { BillPayment, CURRENCIES, RegisterDoParams } from 'src/models/payment';
+import {
+  BillPayment,
+  CURRENCIES,
+  PaymentParams,
+  RegisterDoParams,
+} from 'src/models/payment';
 import { PaymentService } from 'src/shared/services/payment.service';
 import { ShoppingCartService } from 'src/shared/services/shopping-cart.service';
 import { PrescriptionService } from 'src/shared/services/prescription.service';
@@ -45,30 +50,20 @@ export class ShoppingCartComponent implements OnInit {
       this.billService.post({}).subscribe((bill) => {
         const medications = this.items.map((item) => item.medication);
         this.billService.postMedications(bill.id || ' ', medications);
-        const paymentParams: RegisterDoParams = {
-          orderNumber: Math.floor(Math.random() * 10000000).toString(),
-          amount: this.totalPrice,
-          currency: CURRENCIES.RON,
-          returnUrl: 'http://localhost:4200/payment?billId=' + bill.id,
+        const paymentParams: PaymentParams = {
+          value: this.totalPrice.toString(),
           description: 'testing',
-          pageView: 'DESKTOP',
-          language: 'ro',
-          jsonParams: { FORCE_3DS2: false },
-          orderBundle: {
-            orderCreationDate: new Date().toISOString().split('T')[0],
-          },
+          bill_id: bill.id || '',
         };
-        this.paymentService
-          .getRegisterDoResponse(paymentParams)
-          .subscribe((result) => {
-            const safeUrl = this.domSanitizerService.sanitize(
-              SecurityContext.RESOURCE_URL,
-              this.domSanitizerService.bypassSecurityTrustResourceUrl(
-                result.formUrl
-              )
-            );
-            this.document.location.href = safeUrl || 'localhost:4200';
-          });
+        this.paymentService.doPayment(paymentParams).subscribe((result) => {
+          console.log(result);
+
+          const safeUrl = this.domSanitizerService.sanitize(
+            SecurityContext.RESOURCE_URL,
+            this.domSanitizerService.bypassSecurityTrustResourceUrl(result.url)
+          );
+          this.document.location.href = safeUrl || 'localhost:4200';
+        });
         this.prescriptionService.deleteToBeDeletedPrescriptions();
         this.shoppingCartService.cleanCart();
       });

@@ -5,6 +5,7 @@ import { Medication } from 'src/models/medication';
 import { OrderStatusResponse } from 'src/models/payment';
 import { BillService } from 'src/shared/services/bill.service';
 import { PaymentService } from 'src/shared/services/payment.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-payment-presentation',
@@ -20,30 +21,25 @@ export class PaymentPresentationComponent implements OnInit {
     private route: ActivatedRoute,
     private paymentService: PaymentService,
     private billService: BillService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       this.billId = params.get('billId') || '';
-      this.paymentService
-        .getOrderStatusExtended({
-          orderId: params.get('orderId') || '',
-        })
-        .subscribe((response) => {
-          this.response = response;
-          if (response.actionCode !== 0)
-            this.snackBar.open('The payment did not succeed', 'Ok!', {
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-            });
-          else {
-            this.billService.postPayment(this.billId, {
-              orderStatus: response.orderStatus || 0,
-              cardHolderName: response.cardAuthInfo.cardholderName || '',
-            });
-          }
+      const status = params.get('status') || '';
+      if (status !== 'succeed')
+        this.snackBar.open('The payment did not succeed', 'Ok!', {
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
         });
+      else {
+        this.billService.postPayment(this.billId, {
+          orderStatus: 1,
+          cardHolderName: this.userService.getUserData().displayName || ' ',
+        });
+      }
     });
 
     this.billService
