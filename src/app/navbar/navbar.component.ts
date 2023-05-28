@@ -8,6 +8,8 @@ import { UserService } from '../user.service';
 import { GapiService } from '../gapi-service/gapi.service';
 import { PatientService } from 'src/shared/services/patient.service';
 import { Patient } from 'src/models/patient';
+import { DoctorService } from 'src/shared/services/doctor.service';
+import { Doctor } from 'src/models/doctor';
 
 @Component({
   selector: 'app-navbar',
@@ -29,7 +31,8 @@ export class NavbarComponent implements OnInit {
     private shoppingCartService: ShoppingCartService,
     private userService: UserService,
     private gapi: GapiService,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private doctorService: DoctorService
   ) { }
 
   public user: any;
@@ -68,9 +71,10 @@ export class NavbarComponent implements OnInit {
         const currentPatient = this.patientService.collection$.getValue().find((p) => p.email === this.user.email) as Patient;
         this.patientService.currentPatient$.next(currentPatient);
       }
-
-
-
+    }
+    else if (this.user.role == "DOCTOR") {
+      const currentDoctor = this.doctorService.collection$.getValue().find((p) => p.email === this.user.email) as Doctor;
+      this.doctorService.currentDoctor$.next(currentDoctor);
     }
   }
 
