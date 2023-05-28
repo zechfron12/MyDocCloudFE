@@ -51,6 +51,8 @@ import { ChatBotComponent } from './chat-bot/chat-bot.component';
 import { initializeApp } from 'firebase/app';
 import { UserService } from './user.service';
 import { GapiService } from './gapi-service/gapi.service';
+import { DoctorService } from 'src/shared/services/doctor.service';
+import { PatientService } from 'src/shared/services/patient.service';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCg4f8CF0Vo07eTrR6htmQYUwNI7Xh36cY",
@@ -123,7 +125,7 @@ initializeApp(firebaseConfig);
     MatBadgeModule,
     MatSnackBarModule,
   ],
-  providers: [UserService, GapiService],
+  providers: [UserService, GapiService, DoctorService, PatientService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
